@@ -1,0 +1,1 @@
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "/api" : "/choreo-apis/choose-your-own-adventure/backend/v1/api")
