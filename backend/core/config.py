@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = None
 
     ALLOWED_ORIGINS: str = ""
+    STORY_PROVIDER: str = "mock"
 
     OPENAI_API_KEY: str
 
@@ -26,6 +27,13 @@ class Settings(BaseSettings):
     @field_validator("ALLOWED_ORIGINS")
     def parse_allowed_origins(cls, v: str) -> List[str]:
         return v.split(",") if v else []
+
+    @field_validator("STORY_PROVIDER")
+    def normalize_story_provider(cls, v: str) -> str:
+        normalized = v.strip().lower()
+        if normalized not in {"mock", "openai"}:
+            raise ValueError("STORY_PROVIDER must be either 'mock' or 'openai'")
+        return normalized
 
     class Config:
         env_file = ".env"
