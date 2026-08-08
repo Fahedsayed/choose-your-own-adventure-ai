@@ -1,4 +1,5 @@
 import {useState} from "react"
+import ExampleThemes from "./ExampleThemes.jsx"
 
 function ThemeInput({onSubmit}) {
     const [theme, setTheme]= useState("");
@@ -13,6 +14,11 @@ function ThemeInput({onSubmit}) {
         }
 
         onSubmit(theme);
+    }
+
+    const handleSelectExample = (selectedTheme) => {
+        setTheme(selectedTheme)
+        setError("")
     }
 
     return <div className="theme-input-container">
@@ -34,6 +40,8 @@ function ThemeInput({onSubmit}) {
                 Generate Story
             </button>
         </form>
+
+        <ExampleThemes onSelectTheme={handleSelectExample} />
     </div>
 }
 
