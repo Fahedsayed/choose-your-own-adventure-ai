@@ -1,6 +1,6 @@
 from typing import List, Optional, Dict
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 
 class StoryOptionsSchema(BaseModel):
@@ -32,6 +32,13 @@ class StoryBase(BaseModel):
 
 class CreateStoryRequest(BaseModel):
     theme: str
+
+    @field_validator("theme")
+    @classmethod
+    def validate_theme(cls, value: str) -> str:
+        if not value or not value.strip():
+            raise ValueError("theme must not be empty")
+        return value.strip()
 
 
 class CompleteStoryResponse(StoryBase):
